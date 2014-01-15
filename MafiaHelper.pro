@@ -40,3 +40,6 @@ HEADERS += \
     pagestack.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+OTHER_FILES += \
+    qml/MafiaHelper/PageStack.qml
