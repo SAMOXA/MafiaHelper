@@ -1,3 +1,5 @@
+#CONFIG += qml_debug
+#DEFINES += QMLJSDEBUGGER
 # Add more folders to ship with the application, here
 folder_01.source = qml/MafiaHelper
 folder_01.target = qml
@@ -6,7 +8,10 @@ DEPLOYMENTFOLDERS = folder_01
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
+QT += quick qml multimedia
+
 # The .cpp file which was generated for your project. Feel free to hack it.
+
 SOURCES += main.cpp \
     player.cpp \
     roles/regularrole.cpp \
@@ -43,3 +48,6 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 OTHER_FILES += \
     qml/MafiaHelper/PageStack.qml
+
+RESOURCES += \
+    res.qrc

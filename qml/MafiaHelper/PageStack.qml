@@ -22,6 +22,7 @@ Rectangle{
 //    }
     Repeater {
         model: pageStackBackend.getPageToSave();
+        anchors.fill: parent;
         delegate: Loader {
             active: false;
             asynchronous: true;

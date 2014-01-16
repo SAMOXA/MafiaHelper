@@ -1,8 +1,7 @@
 import QtQuick 2.0
 
 Rectangle {
-    width: 800
-    height: 480
+    anchors.fill: parent;
     LeftMenu{
         id: leftMenu
         width: parent.width/100*20

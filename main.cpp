@@ -6,11 +6,11 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-
     QtQuick2ApplicationViewer viewer;
     PageStack* ps = new PageStack;
     ps->addPageToSave(QString("GameField"));
-    ps->setCurrentPage(QString("GameField"));
+    ps->addPageToSave(QString("MainMenu"));
+    ps->setCurrentPage(QString("MainMenu"));
     //qmlRegisterType<PageStack>("Custom", 1, 0, "PageStack");
     QQmlContext *root = viewer.rootContext();
     root->setContextProperty("pageStackBackend", ps);
