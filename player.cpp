@@ -6,6 +6,8 @@ Player::Player(QObject *parent) :
     QObject(parent)
 {
     id = ++freeId;
+    silence = false;
+    killed = false;
 }
 
 AbstractRole* Player::getRole() const

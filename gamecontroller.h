@@ -18,32 +18,34 @@ class GameController : public QObject
     Q_PROPERTY(int selectedPlayer READ getSelectedPlayer NOTIFY selectedPlayerChanged)
     Q_PROPERTY(QString selectedRole READ setSelectedRole NOTIFY selectedRoleChanged)
     Q_PROPERTY(int round READ getRound NOTIFY roundChanged)
-    Q_PROPERTY(enum Phase phase READ getPhase NOTIFY phaseChanged)
+    Q_PROPERTY(Phase phase READ getPhase NOTIFY phaseChanged)
 public:
-    explicit GameController(QObject *parent = 0);
     enum Phase{
         Night,
         Results,
         Linch
     };
+    explicit GameController(QObject *parent = 0);
     RolesMap& getRoles(){ return roles; }
     PlayersMap& getPlayers(){ return players; }
     int getSelectedPlayer(){ return selectedPlayer; }
     QString setSelectedRole(){ return selectedRole; }
     int getRound(){ return round; }
-    enum Phase getPhase(){ return phase; }
+    Phase getPhase(){ return phase; }
 
     void addRole(QString name, AbstractRole* ptr);
     AbstractRole* removeRole(QString name);
     void addPlayer(Player* p);
     Player* removePlayer(int id);
+
+    Q_INVOKABLE QStringList getActions();
 private:
     QMap <QString, AbstractRole*> roles;
     QMap <int, Player*> players;
     int selectedPlayer;
     QString selectedRole;
     int round;
-    enum Phase phase;
+    Phase phase;
 signals:
     void rolesChanged();
     void playersChanged();

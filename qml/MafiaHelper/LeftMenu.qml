@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import Custom 1.0
 
 Rectangle {
     Image {
@@ -18,7 +19,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 10
-        text: qsTr("Раунд 4")
+        text: qsTr("Раунд %1".arg(gameControllerBackend.round))
         color: "whitesmoke"
         font.pixelSize: 30 //TODO calculate font size
         font.family: "Times New Roman"
@@ -30,7 +31,21 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: round.bottom
         anchors.topMargin: 10
-        text: qsTr("Ночь")
+        text: {
+            switch(gameControllerBackend.phase){
+            case GameController.Night:
+                qsTr("Ночь")
+                break;
+            case GameController.Results:
+                qsTr("Утро")
+                break;
+            case GameController.Linch:
+                qsTr("День")
+                break;
+            default:
+                qsTr("ФАТАЛ ЕРРОР")
+            }
+        }
         color: "whitesmoke"
         font.pixelSize: 25 //TODO calculate font size
         font.family: "Times New Roman"
@@ -38,17 +53,42 @@ Rectangle {
         z: 2
     }
     Text {
+        id: subPhase
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: phase.bottom
         anchors.topMargin: 10
-        text: qsTr("Ход доктора")
+        text: {
+            if(gameControllerBackend.phase != GameController.Linch){
+                qsTr("Ходит %1".arg(gameControllerBackend.selectedRole))
+            }else{
+                qsTr("Выборы")
+            }
+        }
         color: "whitesmoke"
         font.pixelSize: 20 //TODO calculate font size
         font.family: "Times New Roman"
         font.bold: true
         z: 2
     }
-
+    Rectangle{
+        anchors.top: subPhase.bottom
+        anchors.bottom: settings.top
+        width: parent.width
+        anchors.horizontalCenter: parent.horizontalCenter
+        z: 2
+        color: "transparent"
+        Column{
+            spacing: 10
+            anchors.centerIn: parent;
+            Repeater{
+                model: gameControllerBackend.getActions()
+                delegate: Button{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: modelData
+                }
+            }
+        }
+    }
     Rectangle{
         id: settings
         anchors.bottom: parent.bottom
