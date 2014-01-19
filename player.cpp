@@ -1,9 +1,13 @@
 #include "player.h"
 
+int Player::freeId = 0;
+
 Player::Player(QObject *parent) :
     QObject(parent)
 {
+    id = ++freeId;
 }
+
 AbstractRole* Player::getRole() const
 {
     return role;
@@ -35,6 +39,16 @@ void Player::setKilled(bool value)
 bool Player::canKilled() const
 {
     return role->getName() == "immortal";
+}
+
+int Player::getId()
+{
+    return id;
+}
+
+int Player::getFreeId()
+{
+    return freeId;
 }
 
 

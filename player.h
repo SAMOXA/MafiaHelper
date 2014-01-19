@@ -21,8 +21,12 @@ public:
 
     bool canKilled() const;
 
+    int getId();
+    int getFreeId();
 private:
     AbstractRole* role;
+    int id;
+    static int freeId;
     bool silence;
     bool killed;
 signals:
