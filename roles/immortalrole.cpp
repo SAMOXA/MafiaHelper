@@ -4,7 +4,7 @@ immortalRole::immortalRole()
 {
     roleName = "immortal";
     peace = true;
-    man = 0;
+    player = 0;
 }
 
 void immortalRole::invokeAction(uint actionNumber, Player* target)

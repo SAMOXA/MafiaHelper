@@ -4,7 +4,7 @@ mafiaRole::mafiaRole()
 {
     roleName = "mafia";
     peace = false;
-    man = 0;
+    player = 0;
     actions << "Убить";
 }
 

@@ -4,7 +4,7 @@ witchRole::witchRole()
 {
     roleName = "witch";
     peace = true;
-    man = 0;
+    player = 0;
     actions << "Убить";
     actions << "Круг защиты";
 }

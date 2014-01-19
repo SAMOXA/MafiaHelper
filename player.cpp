@@ -1,5 +1,5 @@
 #include "player.h"
-
+//TODO make h. only
 int Player::freeId = 0;
 
 Player::Player(QObject *parent) :

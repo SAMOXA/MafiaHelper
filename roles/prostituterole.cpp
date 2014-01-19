@@ -4,7 +4,7 @@ prostituteRole::prostituteRole()
 {
     roleName = "prostitute";
     peace = true;
-    man = 0;
+    player = 0;
     actions << "Заткнуть";
 }
 

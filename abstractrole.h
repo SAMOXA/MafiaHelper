@@ -17,13 +17,14 @@ public:
     virtual void invokeAction(uint actionNumber, Player* target) = 0;
     QString getName() const { return roleName; }
     bool getPeace(){ return peace; }
-    void setMan(Player* man){ this->man = man; }
-    Player* getMan() const { return man; }
+    void setPlayer(Player* man){ this->player = man; }
+    Player* getPlayer() const { return player; }
+    QStringList& getActions(){ return actions; }
 protected:
     QStringList actions;
     QString roleName;
     bool peace;
-    Player* man;
+    Player* player;
 signals:
 
 public slots:

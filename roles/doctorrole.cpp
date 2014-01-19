@@ -4,7 +4,7 @@ doctorRole::doctorRole()
 {
     roleName = "doctor";
     peace = true;
-    man = 0;
+    player = 0;
     actions << "Вылечить";
 }
 

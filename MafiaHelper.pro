@@ -22,7 +22,9 @@ SOURCES += main.cpp \
     roles/immortalrole.cpp \
     roles/witchrole.cpp \
     roles/sleepwalkerrole.cpp \
-    pagestack.cpp
+    pagestack.cpp \
+    gamecontroller.cpp \
+    action.cpp
 
 # Installation path
 # target.path =
@@ -42,7 +44,9 @@ HEADERS += \
     roles/immortalrole.h \
     roles/witchrole.h \
     roles/sleepwalkerrole.h \
-    pagestack.h
+    pagestack.h \
+    gamecontroller.h \
+    action.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
