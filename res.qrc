@@ -5,5 +5,7 @@
         <file>resources/image/mainMenu/1080.jpg</file>
         <file>resources/image/mainMenu/480.jpg</file>
         <file>resources/image/bg.jpg</file>
+        <file>resources/image/gameField/bg.jpg</file>
+        <file>resources/image/gameField/separateLine.jpg</file>
     </qresource>
 </RCC>

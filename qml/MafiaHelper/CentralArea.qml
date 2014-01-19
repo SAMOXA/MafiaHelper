@@ -4,6 +4,7 @@ Rectangle {
     Text {
         text: qsTr("Hello World")
         anchors.centerIn: parent
+        z: 1
     }
     MouseArea {
         anchors.fill: parent
@@ -13,5 +14,11 @@ Rectangle {
         onPressAndHold: {
             console.log("LOLOO")
         }
+    }
+    Image {
+        id: bg
+        anchors.fill: parent
+        source: "qrc:/resources/image/gameField/bg.jpg"
+        fillMode: Image.Tile
     }
 }

@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     PageStack* ps = new PageStack;
     ps->addPageToSave(QString("GameField"));
     ps->addPageToSave(QString("MainMenu"));
-    ps->setCurrentPage(QString("MainMenu"));
+    ps->setCurrentPage(QString("GameField"));
     //qmlRegisterType<PageStack>("Custom", 1, 0, "PageStack");
     QQmlContext *root = viewer.rootContext();
     root->setContextProperty("pageStackBackend", ps);
