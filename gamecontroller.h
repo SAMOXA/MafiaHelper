@@ -6,15 +6,10 @@
 #include "abstractrole.h"
 #include "player.h"
 
-typedef QMap<QString, AbstractRole*> RolesMap;
-typedef QMap<int, Player*> PlayersMap;
-
 class GameController : public QObject
 {
     Q_OBJECT
     Q_ENUMS(Phase)
-    Q_PROPERTY(RolesMap roles READ getRoles NOTIFY rolesChanged)
-    Q_PROPERTY(PlayersMap players READ getPlayers NOTIFY playersChanged)
     Q_PROPERTY(int selectedPlayer READ getSelectedPlayer NOTIFY selectedPlayerChanged)
     Q_PROPERTY(QString selectedRole READ setSelectedRole NOTIFY selectedRoleChanged)
     Q_PROPERTY(int round READ getRound NOTIFY roundChanged)
@@ -26,8 +21,6 @@ public:
         Linch
     };
     explicit GameController(QObject *parent = 0);
-    RolesMap& getRoles(){ return roles; }
-    PlayersMap& getPlayers(){ return players; }
     int getSelectedPlayer(){ return selectedPlayer; }
     QString setSelectedRole(){ return selectedRole; }
     int getRound(){ return round; }

@@ -52,6 +52,12 @@ int Player::getFreeId()
 {
     return freeId;
 }
+QString Player::getName() const
+{
+    return name;
+}
 
-
-
+void Player::setName(const QString& value)
+{
+    name = value;
+}

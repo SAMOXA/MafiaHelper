@@ -7,5 +7,12 @@
         <file>resources/image/bg.jpg</file>
         <file>resources/image/gameField/bg.jpg</file>
         <file>resources/image/gameField/separateLine.jpg</file>
+        <file>resources/image/players/0.png</file>
+        <file>resources/image/players/1.png</file>
+        <file>resources/image/players/2.png</file>
+        <file>resources/image/players/3.png</file>
+        <file>resources/image/players/4.png</file>
+        <file>resources/image/players/5.png</file>
+        <file>resources/image/temp.jpg</file>
     </qresource>
 </RCC>
