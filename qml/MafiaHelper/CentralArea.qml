@@ -6,7 +6,7 @@ Item {
         anchors.fill: parent
         z: 1
         rotation: 90
-        property int pathMargin: 50
+        property int pathMargin: 60
         property real rx: ry//view.width / 2 - pathMargin
         property real ry: view.height / 2 - pathMargin
         property real magic: 0.551784
@@ -42,8 +42,14 @@ Item {
             name: modelData.name
             pid: modelData.id
             role: modelData.role
-            imageSource: "qrc:/resources/image/players/0.png"
-            scale: 0.5
+            imageSource: "qrc:/resources/image/temp.jpg"
+            scale: {
+                if(gameControllerBackend.getPlayersCount()>8){
+                    0.7*(8/gameControllerBackend.getPlayersCount())
+                }else{
+                    0.7
+                }
+            }
             z: 1
             rotation: -90
         }

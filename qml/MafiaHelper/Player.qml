@@ -13,7 +13,7 @@ Item{
             100
         }
     }
-    height: 150
+    height: 160
     Rectangle{
         anchors.fill: parent
         opacity: 0.5
@@ -49,7 +49,7 @@ Item{
             id: vName
             anchors.centerIn: parent
             text: name
-            font.pointSize: 10
+            font.pointSize: 15
             font.bold: true
             color: "whitesmoke"
         }
