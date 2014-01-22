@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import Custom 1.0
 
-Rectangle {
+Item {
     Image {
         id: bg
         anchors.fill: parent

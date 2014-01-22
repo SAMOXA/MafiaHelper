@@ -7,14 +7,16 @@
 class Player : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int id READ getId)
+    Q_PROPERTY(int id READ getId NOTIFY idChanged)
     Q_PROPERTY(bool silence READ canSpeak NOTIFY silenceChanged)
     Q_PROPERTY(bool killed READ isKilled NOTIFY killedChanged)
     Q_PROPERTY(QString name READ getName NOTIFY nameChanged)
+    Q_PROPERTY(QString role READ getRoleString NOTIFY roleChanged)
 public:
     explicit Player(QObject *parent = 0);
 
     AbstractRole* getRole() const;
+    QString getRoleString() const;
     void setRole(AbstractRole* value);
 
     bool canSpeak() const;
@@ -25,7 +27,7 @@ public:
 
     bool canKilled() const;
 
-    int getId();
+    int getId() const;
     int getFreeId();
 
     QString getName() const;
@@ -42,6 +44,8 @@ signals:
     void silenceChanged();
     void killedChanged();
     void nameChanged();
+    void roleChanged();
+    void idChanged();
 public slots:
 
 };

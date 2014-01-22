@@ -5,7 +5,7 @@ GameController::GameController(QObject *parent) :
 {
     round = 0;
     phase = Linch;
-    selectedRole = "Ведьма";
+    selectedRole = "Мафия";
 }
 
 void GameController::addRole(QString name, AbstractRole* ptr)
@@ -45,4 +45,18 @@ Player*GameController::removePlayer(int id)
 QStringList GameController::getActions()
 {
     return roles[selectedRole]->getActions();
+}
+
+QVariantList GameController::getPlayers()
+{
+    QVariantList t;
+    foreach (Player* p, players) {
+        t << QVariant::fromValue(p);
+    }
+    return t;
+}
+
+int GameController::getPlayersCount()
+{
+    return players.size();
 }

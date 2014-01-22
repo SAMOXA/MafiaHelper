@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QVariantList>
 #include "abstractrole.h"
 #include "player.h"
 
@@ -32,6 +33,8 @@ public:
     Player* removePlayer(int id);
 
     Q_INVOKABLE QStringList getActions();
+    Q_INVOKABLE QVariantList getPlayers();
+    Q_INVOKABLE int getPlayersCount();
 private:
     QMap <QString, AbstractRole*> roles;
     QMap <int, Player*> players;

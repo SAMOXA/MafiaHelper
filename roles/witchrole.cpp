@@ -11,12 +11,12 @@ witchRole::witchRole()
 
 void witchRole::invokeAction(uint actionNumber, Player* target)
 {
-    if(actionNumber = 0){
+    if(actionNumber == 0){
         if(target->canKilled()){
             target->setKilled(true);
         }
     }
-    if(actionNumber = 1){
+    if(actionNumber == 1){
         emit reset();
     }
 }
