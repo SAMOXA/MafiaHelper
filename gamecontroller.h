@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QMap>
 #include <QVariantList>
+#include <QVector>
 #include "abstractrole.h"
 #include "player.h"
 
@@ -11,6 +12,7 @@ class GameController : public QObject
 {
     Q_OBJECT
     Q_ENUMS(Phase)
+    Q_PROPERTY(QVariantList players READ getPlayers NOTIFY playersChanged)
     Q_PROPERTY(int selectedPlayer READ getSelectedPlayer NOTIFY selectedPlayerChanged)
     Q_PROPERTY(QString selectedRole READ setSelectedRole NOTIFY selectedRoleChanged)
     Q_PROPERTY(int round READ getRound NOTIFY roundChanged)
@@ -22,6 +24,7 @@ public:
         Linch
     };
     explicit GameController(QObject *parent = 0);
+    QVariantList getPlayers();
     int getSelectedPlayer(){ return selectedPlayer; }
     QString setSelectedRole(){ return selectedRole; }
     int getRound(){ return round; }
@@ -33,11 +36,13 @@ public:
     Player* removePlayer(int id);
 
     Q_INVOKABLE QStringList getActions();
-    Q_INVOKABLE QVariantList getPlayers();
     Q_INVOKABLE int getPlayersCount();
+    Q_INVOKABLE void changeOrder(int index1, int index2);
+    Q_INVOKABLE void cppSideInit();
 private:
     QMap <QString, AbstractRole*> roles;
     QMap <int, Player*> players;
+    QVector <Player*> playersOrder;
     int selectedPlayer;
     QString selectedRole;
     int round;

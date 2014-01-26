@@ -19,7 +19,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 10
-        text: qsTr("Раунд %1".arg(gameControllerBackend.round))
+        text: qsTr("Раунд %1".arg(gameController.round))
         color: "whitesmoke"
         font.pixelSize: 30 //TODO calculate font size
         font.family: "Times New Roman"
@@ -32,7 +32,7 @@ Item {
         anchors.top: round.bottom
         anchors.topMargin: 10
         text: {
-            switch(gameControllerBackend.phase){
+            switch(gameController.phase){
             case GameController.Night:
                 qsTr("Ночь")
                 break;
@@ -58,8 +58,8 @@ Item {
         anchors.top: phase.bottom
         anchors.topMargin: 10
         text: {
-            if(gameControllerBackend.phase != GameController.Linch){
-                qsTr("Ходит %1".arg(gameControllerBackend.selectedRole))
+            if(gameController.phase !== GameController.Linch){
+                qsTr("Ходит %1".arg(gameController.selectedRole))
             }else{
                 qsTr("Выборы")
             }
@@ -81,7 +81,7 @@ Item {
             spacing: 10
             anchors.centerIn: parent;
             Repeater{
-                model: gameControllerBackend.getActions()
+                model: gameController.getActions()
                 delegate: Button{
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: modelData
