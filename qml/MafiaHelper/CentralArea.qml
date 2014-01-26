@@ -51,6 +51,7 @@ Item {
             name: modelData.name
             pid: modelData.id
             role: modelData.role
+            position: index
             imageSource: "qrc:/resources/image/temp.jpg"
             scale: {
                 if(gameController.getPlayersCount()>8){
@@ -88,9 +89,11 @@ Item {
                         if(view.selectedItem.pid !== parent.pid){
                             view.selectedItem.scale = view.selectedItem.scale/120 * 100
                             view.mode = "Idle"
-                            gameController.changeOrder(view.selectedItem.pid, parent.pid)
+                            var tPos = view.selectedItem.position
+                            view.selectedItem = null
+                            gameController.changeOrder(tPos, parent.position)
                         }else{
-                            parent.scale = parent.internal.scaleFactor
+                            parent.scale = internal.scaleFactor
                             view.mode = "Idle"
                             view.selectedItem = null
                         }

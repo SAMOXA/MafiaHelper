@@ -6,6 +6,7 @@ Item{
     property int pid
     property string imageSource
     property string borderColor: "gray"
+    property int position
     width: {
         if(vName.width > 90){
             vName.width+10
