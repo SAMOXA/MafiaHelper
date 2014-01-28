@@ -12,7 +12,6 @@ Rectangle {
             "Выход"
         ]
     }
-
     Image {
         anchors.centerIn: parent
         id: newspaper
@@ -63,25 +62,23 @@ Rectangle {
                 font.italic: true; font.bold: true
             }
         }
-        Text {
-            text: qsTr("От лица глав мафиозных группировок поступило заявления о том, что мафия будет по ночам убивать всех, кто, по её мнению угрожает ей. В ответ на это собралось ополчение из местных жителей, которые каждый день будут сажать в тюрьму избранных ими людей. Напоминаем, что заявление мафии является ответом на заявления мэра - \"Либо мы их, либо они нас, хватит это терпеть\", после которого")
+        RectText {
             width: subtitle.width
             anchors.top: subtitle.bottom; anchors.topMargin: 15
             anchors.bottom: newspaper.bottom; anchors.bottomMargin: 10
             anchors.left: subtitle.left
-            wrapMode: Text.Wrap
-            horizontalAlignment:  Text.AlignJustify
-            font.pixelSize: 10;
+            elementWidth: 6
+            elementHeight: 6
         }
-        Text {
-            text: qsTr(" он пообещал посадить за решётку всех, кто причастен к мафии. Поскольку лица глав мафиозных группировок ещё не установлены, ожидается, что они будут действовать ночью, а днём притворятся мирными жителями. Есть и хорошие новости, добровольцами из ополчения были составлены вооружённые патрули, которые будут действовать ночью, что сильно сковывает действия мафии, однако из-за малого колличества людей часть территорий останется без патрулей, поэтому редакция газеты призывает вас проявлять бдительность, особенно ночью.")
+        RectText {
             width: subtitle.width
             anchors.top: caption.bottom; anchors.topMargin: 7
             anchors.left: subtitle.right; anchors.leftMargin: 10
             anchors.bottom: newspaper.bottom; anchors.bottomMargin: 10;
-            wrapMode: Text.Wrap
-            horizontalAlignment:  Text.AlignJustify
-            font.pixelSize: 10;
+            elementWidth: 6
+            elementHeight: 6
+            offset: 300
+            beginFromUpperCase: false
         }
         Item{
             id: menu
