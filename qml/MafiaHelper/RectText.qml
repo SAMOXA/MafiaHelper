@@ -20,7 +20,7 @@ Item {
                     delegate: Rectangle {
                         opacity: root.textOpacity
                         y: {
-                            if(modelData === 2){
+                            if(modelData < 0){
                                 0
                             }else{
                                 Math.round(elementHeight/100*50)
@@ -28,20 +28,20 @@ Item {
                         }
                         color: {
                             if(modelData === 0){
-                                "white"
+                                "transparent"
                             }else{
                                 "black"
                             }
                         }
                         width: {
-                            if(modelData < 0){
-                                elementWidth + Math.abs(modelData)
+                            if(modelData > 0){
+                                elementWidth*modelData
                             }else{
                                 elementWidth
                             }
                         }
                         height: {
-                            if(modelData === 2){
+                            if(modelData < 0){
                                 elementHeight + Math.round(elementHeight/100*50)
                             }else{
                                 elementHeight

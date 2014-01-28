@@ -22,18 +22,13 @@ function generateText(parentWidth, parentHeight, elementWidth, elementHeight, of
     var y
     var upperCase = /[A-Z]/
     var countX = Math.floor(parentWidth/elementWidth)
-    var addX = Math.round(parentWidth-(countX*elementWidth))
     var countY = Math.floor(parentHeight/(elementHeight+spacing))
     var output = new Array(countY)
     for(y=0;y<countY;y++){
-        if(addX !== 0){
-            output[y] = new Array(countX+1)
-        }else{
-            output[y] = new Array(countX)
-        }
+        output[y] = new Array(countX)
         for(x=0;x<countX;x++){
             if(upperCase.test(origText.charAt(i))){
-                output[y][x] = 2
+                output[y][x] = -1
             }else{
                 if(origText.charAt(i) === ' '){
                     output[y][x] = 0
@@ -43,13 +38,33 @@ function generateText(parentWidth, parentHeight, elementWidth, elementHeight, of
             }
             i++;
         }
-        if(addX !== 0){
-            if(origText.charAt(i) === ' '){
-                output[y][x] = -addX
+    }
+    //Some optimization
+    var accum
+    var flip
+    for(y=0;y<countY;y++){
+        flip = false
+        accum = 0
+        for(x=0;x<output[y].length;x++){
+            if(flip === true){
+                if(output[y][x] === 1){
+                    accum++
+                    output[y].splice(x-1,1)
+                    x--;
+                }else{
+                    output[y][x-1] = accum
+                    accum = 0
+                    flip = false
+                }
             }else{
-                output[y][x] = -addX
+                if(output[y][x] === 1){
+                    flip = true
+                    accum++
+                }
             }
-            i++
+        }
+        if(flip === true){
+            output[y][x-1] = accum
         }
     }
     return output
