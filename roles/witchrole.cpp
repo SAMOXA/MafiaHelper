@@ -13,7 +13,7 @@ void witchRole::invokeAction(uint actionNumber, Player* target)
 {
     if(actionNumber == 0){
         if(target->canKilled()){
-            target->setKilled(true);
+            target->setStatus(Player::WasKilled);
         }
     }
     if(actionNumber == 1){

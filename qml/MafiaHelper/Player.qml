@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 
 Item{
     property string name
@@ -7,6 +8,11 @@ Item{
     property string imageSource
     property string borderColor: "gray"
     property int position
+    property bool selected: false
+    property bool killed: false
+    property bool silence: false
+    property bool wasKilled: false
+    signal swap;
     width: {
         if(vName.width > 90){
             vName.width+10
@@ -14,11 +20,27 @@ Item{
             100
         }
     }
-    height: 160
+    height: 180
     Rectangle{
         anchors.fill: parent
-        opacity: 0.5
-        color: "black"
+        opacity: {
+            if(selected === true){
+                0.9
+            }else{
+                0.5
+            }
+        }
+        color:{
+            if(silence === true){
+                "blue"
+                return
+            }
+            if(wasKilled === true){
+                "red"
+                return
+            }
+            "black"
+        }
         radius: 7
         border.color: borderColor
         border.width: 2
@@ -46,13 +68,43 @@ Item{
         anchors.topMargin: 2
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5
-        Text {
-            id: vName
-            anchors.centerIn: parent
-            text: name
-            font.pointSize: 15
-            font.bold: true
-            color: "whitesmoke"
+        Column{
+            anchors.fill: parent
+            Text {
+                id: vName
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: name
+                font.pointSize: 15
+                font.bold: true
+                color: "whitesmoke"
+                MouseArea{
+                    anchors.fill: parent;
+                    onClicked: {
+                        swap();
+                    }
+                }
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: role
+                font.pointSize: 13
+                font.bold: true
+                color: "whitesmoke"
+                MouseArea{
+                    anchors.fill: parent;
+                    onClicked: {
+                        swap();
+                    }
+                }
+            }
         }
+    }
+    Colorize{
+        anchors.fill: parent
+        source: parent
+        saturation: 0
+        hue: 0
+        lightness: 0
+        visible: killed
     }
 }

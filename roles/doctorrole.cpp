@@ -11,11 +11,8 @@ doctorRole::doctorRole()
 void doctorRole::invokeAction(uint actionNumber, Player* target)
 {
     if(actionNumber == 0){
-        if(target->isKilled()){
-            target->setKilled(false);
-        }
-        if(!target->canSpeak()){
-            target->setSilence(false);
+        if(target->getStatus() == Player::WasKilled || target->getStatus() == Player::Silenced){
+            target->setStatus(Player::Alive);
         }
     }
 }

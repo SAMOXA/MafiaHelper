@@ -11,6 +11,6 @@ prostituteRole::prostituteRole()
 void prostituteRole::invokeAction(uint actionNumber, Player* target)
 {
     if(actionNumber == 0){
-        target->setSilence(true);
+        target->setStatus(Player::Silenced);
     }
 }

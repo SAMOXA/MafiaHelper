@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     ps->addPageToSave(QString("MainMenu"));
     ps->setCurrentPage(QString("GameField"));
     qmlRegisterType<GameController>("Custom", 1, 0, "GameController");
+    qmlRegisterType<Player>("Custom", 1, 0, "PlayerCpp");
     QQmlContext *root = viewer.rootContext();
     root->setContextProperty("pageStackBackend", ps);
 

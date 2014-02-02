@@ -81,10 +81,13 @@ Item {
             spacing: 10
             anchors.centerIn: parent;
             Repeater{
-                model: gameController.getActions()
+                model: gameController.actions
                 delegate: Button{
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: modelData
+                    onClicked: {
+                        gameController.menuClick(index)
+                    }
                 }
             }
         }

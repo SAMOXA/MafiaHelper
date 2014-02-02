@@ -1,11 +1,12 @@
 import QtQuick 2.0
+import Custom 1.0
 
 Item {
     PathView{
         id: view
         anchors.fill: parent
         z: 1
-        rotation: 90
+        //rotation: 90
         interactive: false;
         property int pathMargin: 60
         property real rx: ry//view.width / 2 - pathMargin
@@ -18,12 +19,7 @@ Item {
         property string mode: "Idle"
         property var selectedItem: null
         path: Path {
-            startX: view.cx + view.rx; startY: view.cy
-            PathCubic { // first quadrant arc
-                control1X: view.cx + view.rx; control1Y: view.cy + view.my
-                control2X: view.cx + view.mx; control2Y: view.cy + view.ry
-                x: view.cx; y: view.cy + view.ry
-            }
+            startX: view.cx; startY: view.cy + view.ry
             PathCubic { // second quadrant arc
                 control1X: view.cx - view.mx; control1Y: view.cy + view.ry
                 control2X: view.cx - view.rx; control2Y: view.cy + view.my
@@ -39,15 +35,14 @@ Item {
                 control2X: view.cx + view.rx; control2Y: view.cy - view.my
                 x: view.cx + view.rx; y: view.cy
             }
+            PathCubic { // first quadrant arc
+                control1X: view.cx + view.rx; control1Y: view.cy + view.my
+                control2X: view.cx + view.mx; control2Y: view.cy + view.ry
+                x: view.cx; y: view.cy + view.ry
+            }
         }
         model: gameController.players
         delegate: Player{
-            QtObject{
-                id: internal
-                property real xCor
-                property real yCor
-                property real scaleFactor
-            }
             name: modelData.name
             pid: modelData.id
             role: modelData.role
@@ -61,59 +56,70 @@ Item {
                 }
             }
             z: 1
-            rotation: -90
-            MouseArea{
-                anchors.fill: parent
-                onPressAndHold: {
-                    if(view.mode == "Idle"){
-                        internal.xCor = parent.x;
-                        internal.yCor = parent.y;
-                        internal.scaleFactor = parent.scale
-                        mapToItem(view.parent, view.cx, view.cy)
-                        parent.x = mapToItem(view.parent, x, y).x;
-                        parent.y = mapToItem(view.parent, x, y).y;
-                        parent.scale = 2;
-                        view.mode = "Centered"
-                        view.selectedItem = parent;
+            //rotation: -90
+            onSwap:{
+                gameController.setSwap(parent.pid);
+            }
+            Connections{
+                target: modelData
+                onModeChanged:{
+                    switch(modelData.mode){
+                    case PlayerCpp.None:
+                        x = modelData.restoreX()
+                        y = modelData.restoreY()
+                        scale = modelData.restoreScale()
+                        selected = false;
+                        break;
+                    case PlayerCpp.Selected:
+                        modelData.saveScale(scale)
+                        modelData.saveCoords(x, y)
+                        scale = scale + scale/100 * 20
+                        break;
+                    case PlayerCpp.Centered:
+                        modelData.saveScale(scale)
+                        modelData.saveCoords(x, y)
+                        x = centralAreaCenter.x - width/2
+                        y = centralAreaCenter.y - height/2
+                        z = 10
+                        selected = true;
+                        scale = 2
+                        break;
                     }
                 }
-                onClicked: {
-                    if(view.mode == "Idle"){
-                        internal.scaleFactor = parent.scale
-                        parent.scale = parent.scale + parent.scale/100 * 20
-                        view.mode = "Selected"
-                        view.selectedItem = parent
-                        return
-                    }
-                    if(view.mode == "Selected"){
-                        if(view.selectedItem.pid !== parent.pid){
-                            view.selectedItem.scale = view.selectedItem.scale/120 * 100
-                            view.mode = "Idle"
-                            var tPos = view.selectedItem.position
-                            view.selectedItem = null
-                            gameController.changeOrder(tPos, parent.position)
-                        }else{
-                            parent.scale = internal.scaleFactor
-                            view.mode = "Idle"
-                            view.selectedItem = null
-                        }
-                        return
-                    }
-                    if(view.mode == "Centered"){
-                        if(view.selectedItem.pid === parent.pid){
-                            parent.x = internal.xCor;
-                            parent.y = internal.yCor;
-                            parent.scale = internal.scaleFactor;
-                            view.mode = "Idle"
-                            view.selectedItem = null
-                            return
-                        }
+                onStatusChanged: {
+                    switch(modelData.status){
+                    case PlayerCpp.Alive:
+                        killed = false
+                        silence = false
+                        wasKilled = false
+                        break;
+                    case PlayerCpp.WasKilled:
+                        killed = false
+                        silence = false
+                        wasKilled = true
+                        break;
+                    case PlayerCpp.Killed:
+                        killed = true
+                        silence = false
+                        wasKilled = false
+                        break;
+                    case PlayerCpp.Silenced:
+                        silence = true
+                        break;
                     }
                 }
             }
-        }
-        Connections{
-            target: gameController
+            MouseArea{
+                anchors.fill: parent
+                onPressAndHold: {
+                    console.log("LongClick")
+                    gameController.longClick(parent.pid);
+                }
+                onClicked: {
+                    console.log("Click")
+                    gameController.click(parent.pid);
+                }
+            }
         }
     }
 

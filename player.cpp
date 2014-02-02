@@ -6,8 +6,8 @@ Player::Player(QObject *parent) :
     QObject(parent)
 {
     id = freeId++;
-    silence = false;
-    killed = false;
+    status = Alive;
+    mode = None;
 }
 
 AbstractRole* Player::getRole() const
@@ -25,30 +25,10 @@ void Player::setRole(AbstractRole* value)
     role = value;
     emit roleChanged();
 }
-bool Player::canSpeak() const
-{
-    return silence;
-}
-
-void Player::setSilence(bool value)
-{
-    silence = value;
-    emit silenceChanged();
-}
-bool Player::isKilled() const
-{
-    return killed;
-}
-
-void Player::setKilled(bool value)
-{
-    killed = value;
-    killedChanged();
-}
 
 bool Player::canKilled() const
 {
-    return role->getName() == "immortal";
+    return role->getName() != "immortal";
 }
 
 int Player::getId() const
@@ -70,3 +50,70 @@ void Player::setName(const QString& value)
     name = value;
     nameChanged();
 }
+int Player::getVotes() const
+{
+    return votes;
+}
+
+void Player::incVotes()
+{
+    votes++;
+}
+
+void Player::decVotes()
+{
+    votes--;
+}
+
+void Player::resetVotes()
+{
+    votes = 0;
+}
+
+void Player::saveCoords(qreal x, qreal y)
+{
+    this->x = x;
+    this->y = y;
+}
+
+qreal Player::restoreX()
+{
+    return x;
+}
+
+qreal Player::restoreY()
+{
+    return y;
+}
+
+void Player::saveScale(qreal scale)
+{
+    this->scale = scale;
+}
+
+qreal Player::restoreScale()
+{
+    return scale;
+}
+
+Player::Mode Player::getMode() const
+{
+    return mode;
+}
+
+void Player::setMode(const Mode& value)
+{
+    mode = value;
+    emit modeChanged();
+}
+Player::Status Player::getStatus() const
+{
+    return status;
+}
+
+void Player::setStatus(const Status& value)
+{
+    status = value;
+    emit statusChanged();
+}
+
